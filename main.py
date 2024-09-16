@@ -1,12 +1,14 @@
 import streamlit as st
 import pandas as pd
 import streamlit_authenticator as stauth
+from models import session, Usuario
 
-senhas_criptografadas = stauth.Hasher(["12345", "12345"]).generate()
+lista_usuarios = session.query(Usuario).all()
+
+#senhas_criptografadas = stauth.Hasher(["12345", "12345"]).generate()
 
 credenciais = {"usernames":{
-    "anzilago": {"name": "Henrique", "password": senhas_criptografadas[0]},
-    "glis":{"name": "Glislayne", "password": senhas_criptografadas[1]},
+    usuario.email: {"name": usuario.nome, "password": usuario.senha} for usuario in lista_usuarios
 }}
 
 authenticator = stauth.Authenticate(credenciais, "credencias_fattura", "fsyfus%$67fs76AH7", cookie_expiry_days=30)
@@ -34,12 +36,24 @@ if dados_usuario:
 
     base = carregar_dados()
 
-    pg = st.navigation(
+    email_usuario = dados_usuario["username"]
+    usuario = session.query(Usuario).filter_by(email=email_usuario).first()
+
+    if usuario.admin:
+        pg = st.navigation(
+            {
+                "Home": [st.Page("homepage.py", title="Fattura+")],
+                "Dashboards": [st.Page("dashboard.py", title="Dashboard"), st.Page("indicadores.py", title="Indicadores")],
+                "Conta": [st.Page(logout, title="Sair"), st.Page("conta.py", title="Criar Conta")]
+            }
+        )
+    else:
+        pg = st.navigation(
         {
             "Home": [st.Page("homepage.py", title="Fattura+")],
             "Dashboards": [st.Page("dashboard.py", title="Dashboard"), st.Page("indicadores.py", title="Indicadores")],
-            "Conta": [st.Page(logout, title="Sair"), st.Page("conta.py", title="Criar Conta")]
+            "Conta": [st.Page(logout, title="Sair")]
         }
     )
-
+        
     pg.run()
