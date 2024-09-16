@@ -22,4 +22,4 @@ class Usuario(Base):
         self.admin = admin
 
 
-Base.metadata.create_all(bind=db)
+Base.metadata.create_all(bind=db) 
