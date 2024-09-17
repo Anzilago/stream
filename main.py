@@ -3,15 +3,15 @@ import pandas as pd
 import streamlit_authenticator as stauth
 from models import session, Usuario
 
-# Esconder o ícone do GitHub e a marca d'água do Streamlit
+# Esconder o ícone do GitHub, a marca d'água do Streamlit e o botão "Manage App"
 hide_streamlit_style = """
     <style>
-
-    footer {visibility: hidden;}
-
+    .stApp > header {visibility: hidden;}  /* Esconder o cabeçalho (ícone do GitHub e botão "Manage App") */
+    footer {visibility: hidden;}  /* Esconder o rodapé (Made with Streamlit) */
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 
 lista_usuarios = session.query(Usuario).all()
 
