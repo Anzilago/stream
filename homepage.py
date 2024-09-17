@@ -8,7 +8,8 @@ if "username" in secao_usuario:
 coluna_esquerda, coluna_direita = st.columns([1, 1.5])
 
 if nome_usuario:
-    coluna_esquerda.title(f"Bem vindo, {nome_usuario}!")
+    coluna_esquerda.title(f"Olá, {nome_usuario}!")
+    coluna_esquerda.write("#### Você está no lugar certo para descobrir insights de dados!")
 
 botao_dashboards = coluna_esquerda.button("Dashboards Projetos")
 botao_indicadores = coluna_esquerda.button("Principais Indicadores")
