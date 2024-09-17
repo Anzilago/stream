@@ -6,7 +6,7 @@ from models import session, Usuario
 # Esconder o ícone do GitHub e a marca d'água do Streamlit
 hide_streamlit_style = """
     <style>
-    #MainMenu {visibility: hidden;}
+
     footer {visibility: hidden;}
 
     </style>
