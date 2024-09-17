@@ -3,6 +3,16 @@ import pandas as pd
 import streamlit_authenticator as stauth
 from models import session, Usuario
 
+# Esconder o ícone do GitHub e a marca d'água do Streamlit
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 lista_usuarios = session.query(Usuario).all()
 
 #senhas_criptografadas = stauth.Hasher(["12345", "12345"]).generate()
