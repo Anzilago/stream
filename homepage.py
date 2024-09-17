@@ -1,3 +1,4 @@
+.streamlit/config.toml
 import streamlit as st
 
 secao_usuario = st.session_state
